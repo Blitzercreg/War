@@ -42,30 +42,47 @@ for card in range(53):
 
 # Start of game loop
 while True:
-	print('Wins ' + str(wins) + ' Losses ' + str(losses) + ' Ties ' + str(ties))
+	# Current score
+	score = 'Wins: ' + str(wins) + ' Losses: ' + str(losses) + ' Ties: ' + str(ties)
+	print(score)
+	print('-' * len(score))
+
+	# Start battle or quit
 	key_input = input('Hit enter to battle: ')
 	if key_input == 'q':
 		sys.exit()
 
-	# PLAYERS TURN
+# PLAYERS TURN
 	player_card = player_deck[0]
 
-	# Turn players card into a list and delete the letter part of the card
+	# Turn players card into a list, detect the suit of the card 
+	# and delete the letter part of the card
 	_list = list(player_card)
 	list_end = len(_list) - 1
+	suit = _list[list_end]
+	
+	if suit == 'h':
+		suit = '♥Hearts♥'
+	elif suit == 'd':
+		suit = '♦Diamonds♦'
+	elif suit == 'c':
+		suit = '♣Clubs♣'
+	elif suit == 's':
+		suit = '♠Spades♠'
+
 	del _list[list_end]
 
-	# Turn players card back into a string
+	# Turn card back into a string
 	player_card = ''
 	for i in _list:
 	   	player_card += str(i)
 
 	if player_card == 'A' or player_card == '8':
-		print("You have drawn an " + str(player_card))
+		print("\nYou have drawn an " + str(player_card) + ' of ' + suit)
 	else:
-		print("You have drawn a " + str(player_card))
+		print("\nYou have drawn a " + str(player_card) + ' of ' + suit)
 
-	# Then turn the same card into an integer and delete it out of the player
+	# Turn the same card into an integer and delete it out of the player deck
 	try:
 		player_card = int(player_card)
 	except ValueError:
@@ -79,24 +96,37 @@ while True:
 			player_card = 14
 	del player_deck[0]
 
-	# COMPUTERS TURN
+# COMPUTERS TURN
 	computer_card = computer_deck[0]
 
+	# Turn computers card into a list, detect the suit of the card 
+	# and delete the letter part of the card
 	_list = list(computer_card)
 	list_end = len(_list) - 1
+	suit = _list[list_end]
+	
+	if suit == 'h':
+		suit = '♥Hearts♥'
+	elif suit == 'd':
+		suit = '♦Diamonds♦'
+	elif suit == 'c':
+		suit = '♣Clubs♣'
+	elif suit == 's':
+		suit = '♠Spades♠'
+
 	del _list[list_end]
 
-	# Turn computers card back into a string
+	# Turn card back into a string
 	computer_card = ''
 	for i in _list:
 	   	computer_card += str(i)
 
 	if computer_card == 'A' or computer_card == '8':
-		print("The computer has drawn an " + str(computer_card))
+		print("The computer has drawn an " + str(computer_card) + ' of ' + (suit))
 	else:
-		print("The computer has drawn a " + str(computer_card))
+		print("The computer has drawn a " + str(computer_card) + ' of ' + (suit))
 
-	# Then turn the same card into an integer and delete it out of the player
+	# Turn the same card into an integer and delete it out of the computer deck
 	try:
 		computer_card = int(computer_card)
 	except ValueError:
@@ -112,13 +142,13 @@ while True:
 
 	# Result of battle
 	if player_card > computer_card:
-		print("You have won the battle, but the war still rages on!\n")
+		print("\nYou have won the battle, but the war still rages on!\n")
 		wins = wins + 1
 	elif player_card < computer_card:
-		print("You have been bested in this battle, but the war is still going. Don't give up!\n")
+		print("\nYou have been bested in this battle, but the war is still going. Don't give up!\n")
 		losses = losses + 1
 	else:
-		print("It has come to a stalemate, who will win the next battle?\n")
+		print("\nIt has come to a stalemate, who will win the next battle?\n")
 		ties = ties + 1
 
 	# End of loop to see if there are anmymore cards
